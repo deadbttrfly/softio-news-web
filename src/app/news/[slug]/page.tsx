@@ -1,5 +1,6 @@
-import { newsArticles } from "@/data/news";
+import { getArticleBySlug } from "@/lib/api";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 interface Props {
   params: Promise<{
@@ -12,11 +13,11 @@ export default async function NewsDetail({
 }: Props) {
   const { slug } = await params;
 
-  const article = newsArticles.find(
-    (item) => item.slug === slug
-  );
+  let article;
 
-  if (!article) {
+  try {
+    article = await getArticleBySlug(slug);
+  } catch {
     notFound();
   }
 
@@ -26,13 +27,14 @@ export default async function NewsDetail({
         {article.title}
       </h1>
 
-      <img
-        src={article.imageUrl}
-        alt={article.title}
-        width="800"
-        height="600"
-        className="w-full h-96 object-cover rounded-lg mt-6"
-      />
+      <div className="relative w-full h-96 mt-6">
+        <Image
+          src={article.imageUrl}
+          alt={article.title}
+          fill
+          className="object-cover rounded-lg"
+        />
+      </div>
 
       <p className="text-blue-500 mt-4">
         {article.category}
@@ -48,13 +50,16 @@ export default async function NewsDetail({
         Konten Berita
       </h2>
 
-      <p className="mt-6 text-lg">
-        {article.content.map((paragraph, index) => (
-        <p key={index} className="mt-6 text-lg">
-          {paragraph}
-        </p>
-      ))}
-      </p>
+      {article.content.map(
+        (paragraph, index) => (
+          <p
+            key={index}
+            className="mt-6 text-lg"
+          >
+            {paragraph}
+          </p>
+        )
+      )}
     </main>
   );
 }
