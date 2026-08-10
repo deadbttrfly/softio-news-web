@@ -15,9 +15,9 @@ export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Link
           href={`/news/${main.slug}`}
-          className="group relative col-span-1 block overflow-hidden lg:col-span-2"
+          className="group relative col-span-1 block overflow-hidden rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-2xl lg:col-span-2"
         >
-          <div className="relative aspect-[16/9] w-full overflow-hidden bg-ink/5">
+          <div className="relative aspect-[16/9] w-full overflow-hidden border border-white/15 shadow-lg rounded-xl">
             <Image
               src={main.imageUrl}
               alt={main.imageAlt}
@@ -26,7 +26,9 @@ export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
               sizes="(min-width: 1024px) 66vw, 100vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" />
+            
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-ink/60 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+
             <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
               <Badge tone="merah">{main.category}</Badge>
               <h1 className="mt-3 font-display text-2xl font-bold leading-tight text-paper sm:text-4xl">
@@ -42,14 +44,14 @@ export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
           </div>
         </Link>
 
-        <div className="flex flex-col divide-y divide-line border-t border-line lg:border-t-0 lg:border-l lg:pl-6">
-          {secondary.map((article) => (
+        <div className="flex flex-col gap-3 border-t border-line pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-6">
+          {secondary.slice(0, 3).map((article) => (
             <Link
               key={article.slug}
               href={`/news/${article.slug}`}
-              className="group flex gap-4 py-4 first:pt-0"
+              className="group flex items-center gap-4 rounded-xl border border-white/10 bg-paper p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/40 hover:shadow-md"
             >
-              <div className="relative h-20 w-28 shrink-0 overflow-hidden bg-ink/5">
+              <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg border border-white/15 bg-ink/5 shadow-sm">
                 <Image
                   src={article.imageUrl}
                   alt={article.imageAlt}
@@ -58,11 +60,13 @@ export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div>
-                <Badge tone="outline" size="sm">
-                  {article.category}
-                </Badge>
-                <h3 className="mt-1.5 font-display text-base font-semibold leading-snug text-ink group-hover:text-merah transition-colors">
+              <div className="flex flex-col justify-center min-w-0 flex-1">
+                <div>
+                  <Badge tone="outline" size="sm">
+                    {article.category}
+                  </Badge>
+                </div>
+                <h3 className="mt-1.5 line-clamp-2 font-display text-sm font-semibold leading-snug text-ink transition-colors group-hover:text-merah sm:text-base">
                   {article.title}
                 </h3>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-widest2 text-slate-soft">
