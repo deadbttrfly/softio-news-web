@@ -1,5 +1,6 @@
 import {
   getAllNews,
+  getNewsById,
   getNewsBySlug,
   createNews,
   updateNews,
@@ -11,6 +12,31 @@ export async function getNews(req, res) {
     const news = await getAllNews();
 
     res.status(200).json(news);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
+export async function getNewsDetailById(
+  req,
+  res
+) {
+  try {
+    const article = await getNewsById(
+      req.params.id
+    );
+
+    if (!article) {
+      return res.status(404).json({
+        message: "Berita tidak ditemukan",
+      });
+    }
+
+    res.status(200).json(article);
   } catch (error) {
     console.error(error);
 

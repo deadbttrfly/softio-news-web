@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getNews,
+  getNewsDetailById,
   getNewsDetail,
   storeNews,
   editNews,
@@ -11,6 +12,7 @@ import {
 const router = express.Router();
 
 router.get("/", getNews);
+router.get("/id/:id", getNewsDetailById);
 router.get("/:slug", getNewsDetail);
 router.post("/", storeNews);
 router.put("/:id", editNews);
