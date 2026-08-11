@@ -17,6 +17,15 @@ export async function getNewsBySlug(slug) {
   return rows[0];
 }
 
+export async function getNewsById(id) {
+  const [rows] = await db.execute(
+    "SELECT * FROM news WHERE id = ?",
+    [id]
+  );
+
+  return rows[0];
+}
+
 export async function createNews(data) {
   const {
     slug,
