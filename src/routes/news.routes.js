@@ -9,16 +9,21 @@ import {
   removeNews,
 } from "../controllers/news.controller.js";
 
-import { authMiddleware }
-from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get("/", getNews);
 
-router.get("/id/:id", getNewsDetailById);
+router.get(
+  "/id/:id",
+  getNewsDetailById
+);
 
-router.get("/:slug", getNewsDetail);
+router.get(
+  "/:slug",
+  getNewsDetail
+);
 
 router.post(
   "/",
@@ -37,5 +42,6 @@ router.delete(
   authMiddleware,
   removeNews
 );
+
 
 export default router;

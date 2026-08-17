@@ -1,8 +1,28 @@
 import db from "../config/database.js";
 
-export async function getAllNews() {
+export async function getAllNews(category = null) {
+  let query = `
+    SELECT *
+    FROM news
+  `;
+
+  const params = [];
+
+  if (category) {
+    query += `
+      WHERE LOWER(category) = LOWER(?)
+    `;
+
+    params.push(category);
+  }
+
+  query += `
+    ORDER BY created_at DESC
+  `;
+
   const [rows] = await db.execute(
-    "SELECT * FROM news ORDER BY created_at DESC"
+    query,
+    params
   );
 
   return rows;
@@ -39,7 +59,15 @@ export async function createNews(data) {
 
   const [result] = await db.execute(
     `INSERT INTO news
-    (slug, title, excerpt, content, category, author, image_url)
+    (
+      slug,
+      title,
+      excerpt,
+      content,
+      category,
+      author,
+      image_url
+    )
     VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [
       slug,
@@ -68,13 +96,14 @@ export async function updateNews(id, data) {
 
   const [result] = await db.execute(
     `UPDATE news
-     SET slug = ?,
-         title = ?,
-         excerpt = ?,
-         content = ?,
-         category = ?,
-         author = ?,
-         image_url = ?
+     SET
+       slug = ?,
+       title = ?,
+       excerpt = ?,
+       content = ?,
+       category = ?,
+       author = ?,
+       image_url = ?
      WHERE id = ?`,
     [
       slug,
