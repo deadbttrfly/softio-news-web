@@ -7,13 +7,13 @@ import NewsCard from "@/components/news/NewsCard";
 interface NewsGridProps {
   articles: NewsArticle[];
   title?: string;
-  initialLimit?: number; // Default misal 6 atau 9
+  initialLimit?: number;
 }
 
 export default function NewsGrid({
   articles,
   title = "Berita Terbaru",
-  initialLimit = 6, // Tampilkan 6 berita di awal
+  initialLimit = 6,
 }: NewsGridProps) {
   const [visibleCount, setVisibleCount] = useState(initialLimit);
 
@@ -36,12 +36,11 @@ export default function NewsGrid({
     );
   }
 
-  // Batasi berita yang di-render
   const visibleArticles = articles.slice(0, visibleCount);
   const hasMore = visibleCount < articles.length;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6); // Tambahkan 6 berita lagi
+    setVisibleCount((prev) => prev + 6);
   };
 
   return (
