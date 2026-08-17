@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
+import {
+  Playfair_Display,
+  Inter,
+  JetBrains_Mono,
+} from "next/font/google";
+
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+
+import LayoutWrapper
+from "@/components/LayoutWrapper";
 
 const displayFont = Playfair_Display({
   subsets: ["latin"],
@@ -21,24 +28,27 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SoftIO News — Kabar Hari Ini, Kapan Saja",
+  title:
+    "SoftIO News — Kabar Hari Ini, Kapan Saja",
   description:
-    "Portal berita nasional dan internasional: politik, ekonomi, olahraga, teknologi, hiburan, dan kesehatan.",
+    "Portal berita nasional dan internasional",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="id">
       <body
         className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} bg-paper font-body text-ink antialiased`}
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LayoutWrapper>
+          {children}
+        </LayoutWrapper>
+        
+        <Toaster position="top-center" />
       </body>
     </html>
   );
