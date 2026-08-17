@@ -30,7 +30,7 @@ const config: Config = {
         grain: "radial-gradient(circle, rgba(24,26,36,0.04) 1px, transparent 1px)",
       },
       animation: {
-        ticker: "ticker 30s linear infinite",
+        ticker: "ticker 200s linear infinite",
       },
       keyframes: {
         ticker: {

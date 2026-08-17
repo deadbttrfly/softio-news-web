@@ -39,7 +39,7 @@ export default function NewsCard({ article, layout = "vertical" }: NewsCardProps
 
   return (
     <Link href={`/news/${article.slug}`} className="group flex flex-col">
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink/5">
+      <div className="relative aspect-[4/3] w-full overflow-hidden border border-white/15 shadow-lg rounded-xl">
         <Image
           src={article.imageUrl}
           alt={article.imageAlt}

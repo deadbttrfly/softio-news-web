@@ -25,7 +25,7 @@ export default function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={`inline-block font-mono font-semibold uppercase tracking-widest2 ${toneStyles[tone]} ${sizeStyles[size]}`}
+      className={`inline-block rounded-full font-mono font-semibold uppercase tracking-widest2 ${toneStyles[tone]} ${sizeStyles[size]}`}
     >
       {children}
     </span>

@@ -36,7 +36,7 @@ export default function Sidebar({ trending }: SidebarProps) {
         </ol>
       </div>
 
-      <div className="border border-line bg-ink p-6 text-paper">
+      <div className="border border-line bg-paper p-6 rounded-xl">
         <h2 className="font-display text-lg font-bold">Newsletter Pagi</h2>
         <p className="mt-2 font-body text-sm text-paper/70">
           Ringkasan berita paling penting, dikirim ke surel Anda setiap pukul
@@ -46,7 +46,7 @@ export default function Sidebar({ trending }: SidebarProps) {
           <input
             type="email"
             placeholder="Alamat surel Anda"
-            className="border border-paper/20 bg-paper/5 px-3 py-2 text-sm text-paper placeholder:text-paper/40 focus:outline-none focus:border-merah-light"
+            className="border border-paper/20 rounded-xl bg-transparent px-3 py-2 text-sm text-paper placeholder:text-paper/40 focus:outline-none focus:border-merah-light"
           />
           <button
             type="submit"
