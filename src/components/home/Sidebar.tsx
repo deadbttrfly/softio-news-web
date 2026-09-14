@@ -42,7 +42,7 @@ export default function Sidebar({ trending }: SidebarProps) {
           message: data.message || "Gagal mendaftar. Silakan coba lagi.",
         });
       }
-    } catch (error) {
+    } catch (_error) {
       setStatus({
         success: false,
         message: "Laiya ntaran bae dah, belon kita anuin Newsletternya coy",

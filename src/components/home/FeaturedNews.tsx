@@ -12,7 +12,10 @@ interface FeaturedNewsProps {
 export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
   if (!main) return null;
 
-  const mainImgSrc = main.imageUrl || (main as any).image_url || "/placeholder.jpg";
+  const mainImgSrc =
+    main.imageUrl ||
+    ((main as unknown as Record<string, unknown>).image_url as string) ||
+    "/placeholder.jpg";
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
@@ -71,7 +74,10 @@ export default function FeaturedNews({ main, secondary }: FeaturedNewsProps) {
 
           <div className="flex flex-col gap-3.5">
             {secondary.slice(0, 3).map((article) => {
-              const secImgSrc = article.imageUrl || (article as any).image_url || "/placeholder.jpg";
+              const secImgSrc =
+                article.imageUrl ||
+                ((article as unknown as Record<string, unknown>).image_url as string) ||
+                "/placeholder.jpg";
 
               return (
                 <Link

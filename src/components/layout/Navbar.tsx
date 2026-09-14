@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Brand from "./Brand";
 import DateTime from "./DateTime";
-import { NEWS_CATEGORIES } from "@/types/news";
 
 export default function Navbar() {
   return (
