@@ -21,7 +21,6 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
           </span>
         </div>
 
-        {/* Ticker */}
         <div className="relative flex-1 overflow-hidden">
           <div
             className="flex items-center gap-8 text-sm py-2.5 w-max animate-ticker"
@@ -32,7 +31,6 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
               (e.currentTarget.style.animationPlayState = "running")
             }
           >
-            {/* Duplikat untuk efek loop mulus */}
             {[...articles, ...articles].map((article, index) => (
               <Link
                 key={`${article.slug}-${index}`}

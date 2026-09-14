@@ -10,36 +10,46 @@ import NewsGrid from "@/components/home/NewsGrid";
 import Sidebar from "@/components/home/Sidebar";
 
 interface HomePageProps {
-  searchParams: { kategori?: string; q?: string };
+  searchParams: Promise<{
+    kategori?: string;
+    q?: string;
+  }>;
 }
 
-export default function HomePage({ searchParams }: HomePageProps) {
+export default async function HomePage({ searchParams }: HomePageProps) {
+  // 1. Resolve searchParams (Next.js 15 Async Params)
+  const resolvedSearchParams = await searchParams;
+
+  // 2. Ambil data synchronously dari @/data/news
   const allArticles = getAllArticles();
   const breaking = getBreakingNews();
   const featured = getFeaturedNews();
 
-  const kategori = searchParams.kategori ?? "";
-  const q = (searchParams.q ?? "").trim().toLowerCase();
+  const kategori = resolvedSearchParams.kategori ?? "";
+  const q = (resolvedSearchParams.q ?? "").trim().toLowerCase();
   const isFiltering = Boolean(kategori || q);
 
+  // 3. Filter data berdasarkan pencarian dan kategori
   const filtered = allArticles.filter((article) => {
     const matchesCategory = kategori ? article.category === kategori : true;
     const matchesQuery = q
       ? article.title.toLowerCase().includes(q) ||
         article.excerpt.toLowerCase().includes(q) ||
-        article.tags.some((tag) => tag.toLowerCase().includes(q))
+        (article.tags && article.tags.some((tag) => tag.toLowerCase().includes(q)))
       : true;
+
     return matchesCategory && matchesQuery;
   });
 
   const gridArticles = isFiltering ? filtered : allArticles.slice(2);
   const gridTitle = isFiltering
-    ? `Hasil untuk ${kategori || "\u201c" + (searchParams.q ?? "") + "\u201d"}`
+    ? `Hasil untuk ${kategori || `“${resolvedSearchParams.q ?? ""}”`}`
     : "Berita Terbaru";
 
   return (
     <>
       <SearchFilter />
+      
       <BreakingNews articles={breaking} />
 
       {!isFiltering && featured.length >= 3 && (
